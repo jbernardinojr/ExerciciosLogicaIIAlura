@@ -1,0 +1,72 @@
+<canvas id="tela" width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.getElementById("tela");
+    var c = tela.getContext("2d");
+
+    c.fillStyle = "gray";
+    c.fillRect(0,0,600,400);
+
+    tela.oncontextmenu = function() {
+         return false;
+    }
+
+    var tiroVermelho = function (x,y) {
+      c.beginPath();
+      c.fillStyle = "red";
+      c.arc(x,y,10,0,2*Math.PI);
+      c.fill();
+    }
+
+    var tiroAzul = function (x,y) {
+      c.beginPath();
+      c.fillStyle = "blue";
+      c.arc(x,y,10,0,2*Math.PI);
+      c.fill();
+    }
+
+    var tiroVerde = function (x,y) {
+      c.beginPath();
+      c.fillStyle = "green";
+      c.arc(x,y,10,0,2*Math.PI);
+      c.fill();
+    }
+
+var atira = function (evento) {
+      evento = evento || window.event;
+      var x = evento.pageX - tela.offsetLeft;
+      var y = evento.pageY - tela.offsetTop;
+      var btnCode;
+
+      if ('object' == typeof evento) {
+          btnCode = evento.button;
+          if (btnCode == 0) { //Left Button
+            tiroAzul(x,y);
+          } else if (btnCode == 2) { //Right button
+            tiroVermelho(x,y);
+          }
+          /*
+          switch (btnCode) {
+              case 0:  //Left Button
+                tiroAzul(x,y);
+                break;
+
+              case 1: //Wheel or middle button
+                tiroVerde(x,y);
+                break;
+
+              case 2: //Right button
+                  tiroVermelho(x,y);
+                  break;
+
+              default:
+                  console.log('Unexpected code: ' + btnCode);
+              }
+              */
+          }
+}
+
+
+tela.onmousedown = atira;
+</script>
